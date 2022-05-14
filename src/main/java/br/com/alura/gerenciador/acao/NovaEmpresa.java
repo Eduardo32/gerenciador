@@ -13,7 +13,7 @@ import br.com.alura.gerenciador.modelo.Banco;
 import br.com.alura.gerenciador.modelo.Empresa;
 
 public class NovaEmpresa {
-	public void executa(HttpServletRequest request, HttpServletResponse response) 
+	public String executa(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException {
 		String nomeEmpresa = request.getParameter("nome");
 		String paramDataAbertura = request.getParameter("data");
@@ -33,6 +33,6 @@ public class NovaEmpresa {
 		Banco banco = new Banco();
 		banco.salvar(empresa);
 		
-		response.sendRedirect("empresa?acao=ListaEmpresas");	
+		return "redirect:empresa?acao=ListaEmpresas";
 	}
 }
