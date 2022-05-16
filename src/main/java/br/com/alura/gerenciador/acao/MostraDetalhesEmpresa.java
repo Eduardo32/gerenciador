@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import br.com.alura.gerenciador.modelo.Banco;
 import br.com.alura.gerenciador.modelo.Empresa;
 
-public class MostraDetalhesEmpresa {
+public class MostraDetalhesEmpresa implements Acao {
 	public String executa(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException {
 		Integer idEmpresa = Integer.valueOf(request.getParameter("id"));

@@ -9,12 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import br.com.alura.gerenciador.acao.AlteraEmpresa;
-import br.com.alura.gerenciador.acao.ListaEmpresas;
-import br.com.alura.gerenciador.acao.MostraDetalhesEmpresa;
-import br.com.alura.gerenciador.acao.NovaEmpresa;
-import br.com.alura.gerenciador.acao.NovaEmpresaForm;
-import br.com.alura.gerenciador.acao.RemoveEmpresa;
+import br.com.alura.gerenciador.acao.Acao;
 
 @WebServlet("/empresa")
 public class EmpresaServlet extends HttpServlet {
@@ -22,8 +17,25 @@ public class EmpresaServlet extends HttpServlet {
 
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String paramAcao = request.getParameter("acao");
-		String nome = null;
+		String nomaDaClasse = "br.com.alura.gerenciador.acao."+paramAcao;
+		String nome;
 		
+		try {
+			Class classe = Class.forName(nomaDaClasse);
+			Acao acao = (Acao) classe.newInstance();
+			nome = acao.executa(request, response);
+		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | ServletException e) {
+			throw new ServletException(e);
+		}
+		
+		String[] tipoEEndereco = nome.split(":");
+		if(tipoEEndereco[0].equals("forward")) {
+			RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/view/" + tipoEEndereco[1]);
+			rd.forward(request, response);
+		} else {
+			response.sendRedirect(tipoEEndereco[1]);
+		}
+		/*
 		if(paramAcao.equals("ListaEmpresas")) {
 			ListaEmpresas acao = new ListaEmpresas();
 			nome = acao.executa(request, response);
@@ -43,14 +55,7 @@ public class EmpresaServlet extends HttpServlet {
 			RemoveEmpresa acao = new RemoveEmpresa();
 			nome = acao.executa(request, response);
 		}
-		
-		String[] tipoEEndereco = nome.split(":");
-		if(tipoEEndereco[0].equals("forward")) {
-			RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/view/" + tipoEEndereco[1]);
-			rd.forward(request, response);
-		} else {
-			response.sendRedirect(tipoEEndereco[1]);
-		}
+		*/
 	}
 
 }
