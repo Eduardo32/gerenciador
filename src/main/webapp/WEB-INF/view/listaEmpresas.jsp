@@ -12,10 +12,11 @@
 <title>Insert title here</title>
 </head>
 <body>
+	<h1>Bem-vindo ${usuarioLogado.login }</h1><c:import url="logout-parcial.jsp" />
 	<c:if test="${not empty empresa}">
 		<p>Empresa ${empresa} cadastrada com sucesso</p>
 	</c:if>
-	<h1>Lista de Empresas:</h1>	
+	<h2>Lista de Empresas:</h2>	
 	<ul>
 		<c:forEach items="${empresas}" var="empresa">
 			<li>

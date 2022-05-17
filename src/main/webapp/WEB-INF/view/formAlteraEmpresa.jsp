@@ -11,7 +11,7 @@
 		<title>Insert title here</title>
 	</head>
 	<body>
-		
+		<c:import url="logout-parcial.jsp" />
 		<form action="${linkServletEmpresa}?acao=AlteraEmpresa&id=${empresa.id}" method="post">
 			<label for="nome">Nome:</label>
 			<input type="text" name="nome" id="nome" value="${empresa.nome}">

@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import br.com.alura.gerenciador.acao.Acao;
 
@@ -16,7 +17,17 @@ public class EmpresaServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		String paramAcao = request.getParameter("acao");
+		HttpSession sessao = request.getSession();
+		boolean isUsuarioLogado = sessao.getAttribute("usuarioLogado") != null;
+		boolean isAcaoProtegida = !(paramAcao.equals("Login") || paramAcao.equals("LoginForm"));
+		
+		if(!isUsuarioLogado && isAcaoProtegida) {
+			response.sendRedirect("empresa?acao=LoginForm");
+			return;
+		}
+		
 		String nomaDaClasse = "br.com.alura.gerenciador.acao."+paramAcao;
 		String nome;
 		
