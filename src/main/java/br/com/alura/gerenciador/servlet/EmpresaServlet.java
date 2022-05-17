@@ -12,7 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import br.com.alura.gerenciador.acao.Acao;
 
-@WebServlet("/empresa")
+//@WebServlet("/empresa")
 public class EmpresaServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
