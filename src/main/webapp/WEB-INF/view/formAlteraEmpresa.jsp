@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-<c:url value="/empresa" var="linkServletEmpresa"/>
+<c:url value="/entrada" var="linkServletEmpresa"/>
 
 <!DOCTYPE html>
 <html>

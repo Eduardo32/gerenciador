@@ -17,16 +17,16 @@ public class Login implements Acao {
 			throws ServletException, IOException {
 		String login = request.getParameter("login");
 		String senha = request.getParameter("senha");
-		
+
 		Banco banco = new Banco();
 		Usuario usuario = banco.buscaUsuario(login, senha);
-		
-		if(usuario != null) {
+
+		if (usuario != null) {
 			HttpSession sessao = request.getSession();
 			sessao.setAttribute("usuarioLogado", usuario);
-			return "redirect:empresa?acao=ListaEmpresas";
+			return "redirect:entrada?acao=ListaEmpresas";
 		} else {
-			return "redirect:empresa?acao=LoginForm";
+			return "redirect:entrada?acao=LoginForm";
 		}
 	}
 

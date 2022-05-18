@@ -29,7 +29,7 @@ public class AutorizacaoFilter extends HttpFilter implements Filter {
 		boolean isAcaoProtegida = !(paramAcao.equals("Login") || paramAcao.equals("LoginForm"));
 		
 		if(!isUsuarioLogado && isAcaoProtegida) {
-			response.sendRedirect("empresa?acao=LoginForm");
+			response.sendRedirect("entrada?acao=LoginForm");
 			return;
 		}
 		chain.doFilter(request, response);

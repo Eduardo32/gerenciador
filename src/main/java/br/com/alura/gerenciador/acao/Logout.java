@@ -16,7 +16,7 @@ public class Logout implements Acao {
 		HttpSession sessao = request.getSession();
 		//sessao.removeAttribute("usuarioLogado");
 		sessao.invalidate();
-		return "redirect:empresa?acao=LoginForm";
+		return "redirect:entrada?acao=LoginForm";
 	}
 
 }
