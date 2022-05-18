@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
 import com.thoughtworks.xstream.XStream;
 
 import br.com.alura.gerenciador.modelo.Banco;
@@ -22,22 +23,25 @@ public class ListaEmpresaService extends HttpServlet {
 			throws ServletException, IOException {
 		List<Empresa> empresas = new Banco().getEmpresas();
 
-		///*
-		XStream xstream = new XStream();
-		xstream.alias("empresa", Empresa.class);
-		String xml = xstream.toXML(empresas); 
-		
-		response.setContentType("application/xml");
-		response.getWriter().print(xml);
-		//*/
-		
-		/*
-		Gson gson = new Gson();
-		String json = gson.toJson(empresas);
-		
-		response.setContentType("application/json");
-		response.getWriter().print(json);
-		//*/
+		String headerAccept = request.getHeader("Accept");
+
+		if (headerAccept.contains("xml")) {
+			XStream xstream = new XStream();
+			xstream.alias("empresa", Empresa.class);
+			String xml = xstream.toXML(empresas);
+
+			response.setContentType("application/xml");
+			response.getWriter().print(xml);
+		} else if(headerAccept.endsWith("json")){
+			Gson gson = new Gson();
+			String json = gson.toJson(empresas);
+
+			response.setContentType("application/json");
+			response.getWriter().print(json);
+		} else {
+			response.setContentType("application/json");
+			response.getWriter().print("{'message': 'no content'}");
+		}
 	}
 
 }

@@ -22,6 +22,12 @@ import br.com.alura.gerenciador.acao.Acao;
 @WebFilter("/empresa")
 public class ControladorFilter extends HttpFilter implements Filter {
 
+	@Override
+	public void init(FilterConfig config) throws ServletException {}
+	
+	@Override
+	public void destroy() {}
+	
 	public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain chain) throws IOException, ServletException {
 		
 		HttpServletRequest request = (HttpServletRequest) servletRequest;
